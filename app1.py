@@ -714,3 +714,149 @@ public class MainActivity extends Activity {
 }
 """)
     st.write("color code finding website link:https://colorcodefinder.com/")
+    st.write("two ball bouncing ball")
+    st.write("activity.xml")
+    st.code("""<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/bounceBallButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Bounce Ball" />
+
+    <ImageView
+        android:id="@+id/bounceBallImage2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/bounceBallButton"
+        android:layout_marginLeft="42dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/ball_shape" />
+
+    <ImageView
+        android:id="@+id/bounceBallImage1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/bounceBallImage2"
+        android:layout_marginEnd="50dp"
+        android:layout_marginLeft="54dp"
+        android:layout_toRightOf="@+id/bounceBallImage2"
+        android:background="@drawable/ball_shape" />
+
+</RelativeLayout>""")
+    st.write("drawable folder with in ball_shape.xml")
+    st.code("""<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval" >
+
+    <solid android:color="#8c0000" />
+
+    <stroke
+        android:width="2dp"
+        android:color="#fff" />
+    
+    <size
+        android:height="80dp"
+        android:width="80dp" />
+
+</shape>""")
+    st.write("ball2")
+    st.code("""<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval" >
+
+    <solid android:color="#8c0000" />
+
+    <stroke
+        android:width="2dp"
+        android:color="#fff" />
+
+    <size
+        android:height="80dp"
+        android:width="80dp" />
+
+</shape>""")
+    st.write("java code ")
+    st.code("""package com.example.bounc;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.TranslateAnimation;
+import android.view.animation.Animation.AnimationListener;
+import android.widget.Button;
+import android.widget.ImageView;
+
+public class MainActivity extends Activity {
+
+    private static final String TAG = "AnimationStarter";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button bounceBallButton = (Button) findViewById(R.id.bounceBallButton);
+        final ImageView bounceBallImage1 = (ImageView) findViewById(R.id.bounceBallImage1);
+        final ImageView bounceBallImage2 = (ImageView) findViewById(R.id.bounceBallImage2);
+
+        bounceBallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animateBall(bounceBallImage1, 0);  // First ball
+                animateBall(bounceBallImage2, 500); // Second ball with delay
+            }
+        });
+    }
+
+    private void animateBall(final ImageView ball, int startOffset) {
+        ball.clearAnimation();
+        TranslateAnimation transAnim = new TranslateAnimation(0, 0, 0, getDisplayHeight() / 2);
+        transAnim.setStartOffset(startOffset);
+        transAnim.setDuration(3000);
+        transAnim.setFillAfter(true);
+        transAnim.setInterpolator(new BounceInterpolator());
+
+        transAnim.setAnimationListener(new AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                Log.i(TAG, "Starting ball bounce animation");
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Log.i(TAG, "Ending ball bounce animation.");
+                ball.clearAnimation();
+                final int left = ball.getLeft();
+                final int top = ball.getTop();
+                final int right = ball.getRight();
+                final int bottom = ball.getBottom();
+                ball.layout(left, top, right, bottom);
+            }
+        });
+
+        ball.startAnimation(transAnim);
+    }
+
+    private int getDisplayHeight() {
+        return this.getResources().getDisplayMetrics().heightPixels;
+    }
+}""")
+
+
+    
+
+
