@@ -6,7 +6,7 @@ def main():
 
     st.write("layout")
     st.write("xml code in activity_main")
-    st.write("""
+    st.code("""
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -64,7 +64,7 @@ def main():
 
 </RelativeLayout>""")
     st.write("activity2.xml")
-    st.write("""
+    st.code("""
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -117,7 +117,7 @@ def main():
 
 </RelativeLayout>""")
     st.write("activity1.java")
-    st.write("""
+    st.code("""
     package com.example.layout;
 
 import android.app.Activity;
@@ -159,7 +159,7 @@ public class activity1 extends Activity {
     }
 }""")
     st.write("activity2.java")
-    st.write("""
+    st.code("""
     package com.example.layout;
 
 import android.app.Activity;
@@ -190,7 +190,7 @@ public class activity2 extends Activity {
     }
 }""")
     st.write("androidmanifist.xml")
-    st.write("""
+    st.code("""
     <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.layout"
