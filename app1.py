@@ -4,6 +4,226 @@ import streamlit as st
 def main():
     st.write("http://bit.ly/35GUYzF")
 
+    st.write("layout")
+    st.write("xml code in activity_main")
+    st.write("""
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Information"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:layout_gravity="center" />
+
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Name" />
+
+        <EditText
+            android:id="@+id/editTextDno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter D.NO" />
+
+        <EditText
+            android:id="@+id/editTextDept"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Department" />
+
+        <EditText
+            android:id="@+id/editTextContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Contact Number" />
+
+        <Button
+            android:id="@+id/buttonOpenActivity2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>""")
+    st.write("activity2.xml")
+    st.write("""
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp" >
+    
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="32dp"
+        android:paddingBottom="10dp"
+        android:text="STUDENT INFORMATION"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewDno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewName"
+        android:layout_below="@+id/textViewName"
+        android:text="D.NO:" />
+
+    <TextView
+        android:id="@+id/textViewContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textViewDept"
+        android:layout_below="@+id/textViewDno"
+        android:text="ContactNO:" />
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textViewContact"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="18dp"
+        android:text="Name:" />
+
+    <TextView
+        android:id="@+id/textViewDept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewContact"
+        android:text="Department:" />
+
+</RelativeLayout>""")
+    st.write("activity1.java")
+    st.write("""
+    package com.example.layout;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class activity1 extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final EditText editTextName = (EditText) findViewById(R.id.editTextName);
+        final EditText editTextDno = (EditText) findViewById(R.id.editTextDno);
+        final EditText editTextDept = (EditText) findViewById(R.id.editTextDept);
+        final EditText editTextContact = (EditText) findViewById(R.id.editTextContact);
+        Button buttonOpenActivity2 = (Button) findViewById(R.id.buttonOpenActivity2);
+
+        buttonOpenActivity2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = editTextName.getText().toString();
+                String dno = editTextDno.getText().toString();
+                String department = editTextDept.getText().toString();
+                String contact = editTextContact.getText().toString();
+
+                Intent intent = new Intent(activity1.this, activity2.class);
+                intent.putExtra("NAME", name);
+                intent.putExtra("DNO", dno);
+                intent.putExtra("DEPARTMENT", department);
+                intent.putExtra("CONTACT", contact);
+                startActivity(intent);
+            }
+        });
+    }
+}""")
+    st.write("activity2.java")
+    st.write("""
+    package com.example.layout;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class activity2 extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity2);
+
+        TextView textViewName = (TextView) findViewById(R.id.textViewName);
+        TextView textViewDno = (TextView) findViewById(R.id.textViewDno);
+        TextView textViewDept = (TextView) findViewById(R.id.textViewDept);
+        TextView textViewContact = (TextView) findViewById(R.id.textViewContact);
+
+        String name = getIntent().getStringExtra("NAME");
+        String dno = getIntent().getStringExtra("DNO");
+        String department = getIntent().getStringExtra("DEPARTMENT");
+        String contact = getIntent().getStringExtra("CONTACT");
+
+        textViewName.setText("Name:" + name);
+        textViewDno.setText("D.NO:" + dno);
+        textViewDept.setText("Department:" + department);
+        textViewContact.setText("ContactNO:" + contact);
+    }
+}""")
+    st.write("androidmanifist.xml")
+    st.write("""
+    <?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.layout"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity 
+            android:name=".activity1"
+            
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.layout.activity2" />
+    </application>
+
+</manifest>""")
+
+
+
+
     st.write("calculator")
     st.write("xml code")
     st.code("""
