@@ -855,6 +855,479 @@ public class MainActivity extends Activity {
         return this.getResources().getDisplayMetrics().heightPixels;
     }
 }""")
+    st.markdown("""<center><h1 style="color:red;">END SEM LAB</h1></center>""",unsafe_allow_html=True)
+    st.write("GUI font & Color change ")
+    st.write("xml code ")
+    st.code("""<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:orientation="vertical"
+>
+
+<TextView
+android:id="@+id/textView1"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:text="WELCOME"
+android:layout_margin="20sp"
+android:gravity="center"
+android:textSize="20sp"
+android:textStyle="bold"
+/>
+<Button
+android:id="@+id/button1"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_margin="20sp"
+android:gravity="center"
+android:text="Change Font Size" />
+<Button
+android:id="@+id/button2"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:gravity="center"
+android:layout_margin="20sp"
+android:text="Change Color" />
+</LinearLayout>""")
+    st.write("mainactivity.java")
+    st.code("""package com.example.gui;
+import android.app.Activity;
+import android.graphics.Typeface;
+import android.graphics.Color;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+
+import android.app.Activity;
+import android.graphics.Typeface;
+import android.graphics.Color;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+public class MainActivity extends Activity {
+float font = 24;
+int i = 1;
+
+
+
+
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+final TextView t1 = (TextView)findViewById(R.id.textView1);
+Button b1 = (Button)findViewById(R.id.button1);
+b1. setOnClickListener(new View.OnClickListener() {
+public void onClick(View view) {
+t1.setTextSize(font);
+font = font+4;
+if(font==40)
+font = 20;
+
+}
+});
+Button b2 = (Button)findViewById(R.id.button2);
+b2.setOnClickListener(new View.OnClickListener() {
+public void onClick(View view) {
+switch(i)
+{
+case 1:
+t1.setTextColor(Color.parseColor("#0000FF"));
+break;
+case 2:
+t1.setTextColor(Color.parseColor("#00FF00"));
+break;
+
+case 3:
+
+t1.setTextColor(Color.parseColor("#FF0000"));
+break;
+
+case 4:
+
+t1.setTextColor(Color.parseColor("#800000"));
+break;
+
+}
+i++;
+if(i==5)
+
+i = 1;
+}
+});
+
+}
+}""")
+
+    st.title("singup validation")
+    st.write("XML code")
+    st.code("""<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username"
+        android:layout_marginTop="16dp"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_marginTop="16dp"
+        android:text="Sign Up" />
+
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signupButton"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>""")
+    st.write("main Activity.java code")
+    st.code("""package com.example.signup_validation;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+
+@SuppressLint("DefaultLocale")
+public class MainActivity extends Activity {
+
+    private View usernameEditText;
+    private View passwordEditText;
+    private View errorTextView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        usernameEditText = findViewById(R.id.username);
+        passwordEditText = findViewById(R.id.password);
+        errorTextView = findViewById(R.id.errorText);
+        View signupButton = findViewById(R.id.signupButton);
+
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                @SuppressWarnings("unused")
+				String username = ((TextView) usernameEditText).getText().toString();
+                String password = ((TextView) passwordEditText).getText().toString();
+
+                if (isValidPassword(password)) {
+                    // Proceed with sign-up process
+                    Toast.makeText(MainActivity.this, "Sign Up Successful!", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Display error message
+                    ((TextView) errorTextView).setText("Password does not meet the requirements.");
+                }
+            }
+        });
+
+    }
+
+    @SuppressLint("DefaultLocale")
+	private boolean isValidPassword(String password) {
+        if (password.length() < 8) {
+            return false;
+        }
+        boolean hasUpperCase = !password.equals(password.toLowerCase());
+        boolean hasLowerCase = !password.equals(password.toUpperCase());
+        boolean hasDigit = !TextUtils.isEmpty(password.replaceAll("[^0-9]", ""));
+        boolean hasSpecialChar = !password.matches("[A-Za-z0-9]*");
+
+        return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
+    }
+}""")
+    st.title("graphical line")
+    st.write("XML code")
+    st.code("""<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+>
+
+<ImageView
+android:id="@+id/imageView1"
+android:layout_width="wrap_content"
+android:layout_height="match_parent"
+android:layout_alignParentLeft="true"
+android:layout_alignParentRight="true"
+android:layout_alignParentTop="true"
+android:src="@drawable/ic_launcher" />
+</RelativeLayout>""")
+    st.write("MainActivity.java code")
+    st.code("""package com.example.graphical;
+
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.os.Bundle;
+import android.view.Display;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.ImageView;
+public class MainActivity extends Activity implements OnTouchListener {
+private ImageView imageView;
+
+private Bitmap bitmap;
+private Canvas canvas;
+private Paint paint;
+private float downx = 0, downy = 0, upx = 0, upy = 0;
+public void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+imageView = (ImageView) this.findViewById(R.id.imageView1);
+Display currentDisplay = getWindowManager().getDefaultDisplay();
+@SuppressWarnings("deprecation")
+float dw = currentDisplay.getWidth();
+@SuppressWarnings("deprecation")
+float dh = currentDisplay.getHeight();
+bitmap = Bitmap.createBitmap((int) dw, (int) dh, Bitmap.Config.ARGB_8888);
+canvas = new Canvas(bitmap);
+paint = new Paint();
+paint.setColor(Color.BLUE);
+imageView.setImageBitmap(bitmap);
+imageView.setOnTouchListener(this);
+}
+public boolean onTouch(View v, MotionEvent event) {
+int action = event.getAction();
+switch (action) {
+case MotionEvent.ACTION_DOWN:
+downx = event.getX();
+downy = event.getY();
+break;
+case MotionEvent.ACTION_MOVE:
+break;
+case MotionEvent.ACTION_UP:
+upx = event.getX();
+upy = event.getY();
+canvas.drawLine(downx, downy, upx, upy, paint);
+imageView.invalidate();
+break;
+case MotionEvent.ACTION_CANCEL:
+break;
+default:
+break;
+}
+return true;
+}
+}""")
+    st.title("intern print std details in other page ")
+    st.write("Actvity1.xml")
+    s.code("""<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Information"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:layout_gravity="center" />
+
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Name" />
+
+        <EditText
+            android:id="@+id/editTextDno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter D.NO" />
+
+        <EditText
+            android:id="@+id/editTextDept"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Department" />
+
+        <EditText
+            android:id="@+id/editTextContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Contact Number" />
+
+        <Button
+            android:id="@+id/buttonOpenActivity2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>""")
+    st.write("Activity2.xml")
+    st.code("""<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp" >
+    
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="32dp"
+        android:paddingBottom="10dp"
+        android:text="STUDENT INFORMATION"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewDno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewName"
+        android:layout_below="@+id/textViewName"
+        android:text="D.NO:" />
+
+    <TextView
+        android:id="@+id/textViewContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textViewDept"
+        android:layout_below="@+id/textViewDno"
+        android:text="ContactNO:" />
+
+    <TextView
+        android:id="@+id/textViewDept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewContact"
+        android:text="Department:" />
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textViewContact"
+        android:layout_below="@+id/textView1"
+        android:text="Name:" />
+
+</RelativeLayout>""")
+    st.write("main1.java")
+    st.code("""package com.example.layout;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class activity1 extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final EditText editTextName = (EditText) findViewById(R.id.editTextName);
+        final EditText editTextDno = (EditText) findViewById(R.id.editTextDno);
+        final EditText editTextDept = (EditText) findViewById(R.id.editTextDept);
+        final EditText editTextContact = (EditText) findViewById(R.id.editTextContact);
+        Button buttonOpenActivity2 = (Button) findViewById(R.id.buttonOpenActivity2);
+
+        buttonOpenActivity2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = editTextName.getText().toString();
+                String dno = editTextDno.getText().toString();
+                String department = editTextDept.getText().toString();
+                String contact = editTextContact.getText().toString();
+
+                Intent intent = new Intent(activity1.this, activity2.class);
+                intent.putExtra("NAME", name);
+                intent.putExtra("DNO", dno);
+                intent.putExtra("DEPARTMENT", department);
+                intent.putExtra("CONTACT", contact);
+                startActivity(intent);
+            }
+        });
+    }
+}""")
+    st.write("main2.java")
+    st.code("""package com.example.layout;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class activity2 extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity2);
+
+        TextView textViewName = (TextView) findViewById(R.id.textViewName);
+        TextView textViewDno = (TextView) findViewById(R.id.textViewDno);
+        TextView textViewDept = (TextView) findViewById(R.id.textViewDept);
+        TextView textViewContact = (TextView) findViewById(R.id.textViewContact);
+
+        String name = getIntent().getStringExtra("NAME");
+        String dno = getIntent().getStringExtra("DNO");
+        String department = getIntent().getStringExtra("DEPARTMENT");
+        String contact = getIntent().getStringExtra("CONTACT");
+
+        textViewName.setText("Name:" + name);
+        textViewDno.setText("D.NO:" + dno);
+        textViewDept.setText("Department:" + department);
+        textViewContact.setText("ContactNO:" + contact);
+    }
+}""")
+    
+
+
+
+    
+
+
 
 
     
