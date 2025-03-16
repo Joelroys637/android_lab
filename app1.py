@@ -1143,7 +1143,7 @@ return true;
 }""")
     st.title("intern print std details in other page ")
     st.write("Actvity1.xml")
-    s.code("""<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    st.code("""<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
