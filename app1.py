@@ -856,7 +856,7 @@ public class MainActivity extends Activity {
     }
 }""")
     st.markdown("""<center><h1 style="color:red;">END SEM LAB</h1></center>""",unsafe_allow_html=True)
-    st.write("GUI font & Color change ")
+    st.title("GUI font & Color change ")
     st.write("xml code ")
     st.code("""<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
