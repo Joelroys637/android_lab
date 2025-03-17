@@ -1322,6 +1322,9 @@ public class activity2 extends Activity {
         textViewContact.setText("ContactNO:" + contact);
     }
 }""")
+    st.title("sms send")
+    st.image("Screenshot_20250317-064949.png")
+
     
 
 
