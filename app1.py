@@ -2,9 +2,10 @@ import streamlit as st
 
 
 def main():
+    st.title("Download ADT android development tool kit")
     st.write("http://bit.ly/35GUYzF")
 
-    st.write("layout")
+    st.title("layout")
     st.write("xml code in activity_main")
     st.code("""
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -619,8 +620,8 @@ public class MainActivity extends Activity {
 }
 """)
 
-
-    st.write("color bg change")
+    st.markdown("""<center><h1 style="color:red;">color bg change</h1></center>""",unsafe_allow_html=True)
+    
     st.write("Xml code")
     st.code("""<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
