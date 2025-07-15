@@ -2,6 +2,67 @@ import streamlit as st
 
 
 def main():
+
+    st.code("""price=[]
+while True:
+    cho=int(input("1.mutton biryani \n 2.chicken biryani \n 3.fish biryani (with chicken lollipop) \n 4.Stop: \n5.bill "))
+    def mutton():
+        gst_amount=(mu*gst)/100
+        re=gst_amount+mu
+        print("Mutton biryani price With Gst:",re*ho)
+        t=re*ho
+        price.append(t)
+
+    def chicken():
+        gst_amount=(chi*gst)/100
+        re=gst_amount+chi
+        print("Chicken biryani price With Gst:",re*ho)
+        t=re*ho
+        price.append(t)
+        
+    def fish_am():
+        gst_amount=(fish*gst)/100
+        fish_price=(gst_amount+fish)*ho_fish
+        return fish_price
+
+    def lollipop_am():
+        gst_amount=(lollipop*gst)/100
+        lollipop_price=(gst_amount+lollipop)*ho_lollipop
+        return lollipop_price
+    
+    def fish_total_gst(fish_price,lollipop_price):
+        re=fish_price+lollipop_price
+        print("fish biryani (with chicken lollipop) with GST price:",re)
+        t=re*ho
+        price.append(t)
+        
+    if cho==1:
+        ho=int(input("How many mutton biryani do you have: "))
+        mu=int(input("Enter a mutton biryani price: "))
+        gst=int(input("Mutton biryani GST persentage: "))
+        mutton()
+    elif cho==2:
+        ho=int(input("How many chicken biryani do you have: "))
+        chi=int(input("Enter a chicken biryani price: "))
+        gst=int(input("Chicken biryani GST persentage: "))
+        chicken()
+    elif cho==3:
+        ho_fish=int(input("How many fish biryani do you have: "))
+        ho_lollipop=int(input("How many chicken lollipop do you have: "))
+        fish=int(input("Enter a fish biryani price: "))
+        lollipop=int(input("Enter a chicken lollipop price: "))
+        gst=int(input("fish biryani (with chicken lollipop) GST persentage: "))
+        fish_price=fish_am()
+        lollipop_price=lollipop_am()
+        fish_total_gst(fish_price,lollipop_price)
+    elif cho==4:
+        break
+    elif cho==5:
+        print(price)
+        print("Total bill amount: ",sum(price))
+        
+    else:
+        print("Invalide option")""")
     st.title("Download ADT android development tool kit")
     st.write("http://bit.ly/35GUYzF")
 
