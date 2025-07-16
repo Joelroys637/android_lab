@@ -2,7 +2,97 @@ import streamlit as st
 
 
 def main():
+    st.title("ticket booking")
+    st.code("""price=[]
+while True:
+    cho=int(input("1.Trichy to mumbai \n 2. Trichy to madurai \n 3.Trichy to delhi \n 4.bill \n 5.exit \n Select option: "))
 
+    def mumbai():
+        p=int(input("Enter a price for Trichy to mumbai:"))
+        tol=ho+ho_child
+        total=tol*p
+
+        if total>=5000:
+            dis=(total*5)/100
+            total=total-dis
+            print("Discount ticket price is: ",total)
+        elif total<=5000:
+            print("Total ticket rate: ",total)
+        else:
+            pass
+        if ho_child>0:
+            ch_am=(total*50)/100
+            total=total-ch_am
+            print("Total tickek rate for child discount: ",total)
+        else:
+            pass
+        price.append(total)
+        
+
+    def madurai():
+        p=int(input("Enter a price for Trichy to madurai:"))
+        tol=ho+ho_child
+        total=tol*p
+
+        if total>=5000:
+            dis=(total*5)/100
+            total=total-dis
+            print("Discount ticket price is: ",total)
+        elif total<=5000:
+            print("Total ticket rate: ",total)
+        else:
+            pass
+        if ho_child>0:
+            ch_am=(total*50)/100
+            total=total-ch_am
+            print("Total tickek rate for child discount: ",total)
+        else:
+            pass
+        price.append(total)
+
+    def delhi():
+        p=int(input("Enter a price for Trichy to delhi:"))
+        tol=ho+ho_child
+        total=tol*p
+
+        if total>=5000:
+            dis=(total*5)/100
+            total=total-dis
+            print("Discount ticket price is: ",total)
+        elif total<=5000:
+            print("Total ticket rate: ",total)
+        else:
+            pass
+        if ho_child>0:
+            ch_am=(total*50)/100
+            total=total-ch_am
+            print("Total tickek rate for child discount: ",total)
+        else:
+            pass
+        price.append(total)
+
+
+
+    if cho==1:
+        ho=int(input("How many people are travel?: "))
+        ho_child=int(input("How many child are travel?: "))
+        mumbai()
+        
+    elif cho==2:
+        ho=int(input("How many people are travel?: "))
+        ho_child=int(input("How many child are travel?: "))
+        madurai()
+
+    elif cho==3:
+        ho=int(input("How many people are travel?: "))
+        ho_child=int(input("How many child are travel?: "))
+        delhi()
+    elif cho==4:
+        print(price)
+        print("Total travel ticket bill amount: ",sum(price))
+    else:
+        print("Invalid option")""")
+    st.title("Hotel program")
     st.code("""price=[]
 while True:
     cho=int(input("1.mutton biryani \n 2.chicken biryani \n 3.fish biryani (with chicken lollipop) \n 4.Stop: \n5.bill "))
