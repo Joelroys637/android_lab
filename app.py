@@ -1,5 +1,5 @@
 import streamlit as st
-import app1 as ap
+import java as ap
 
 org_name="admin"
 org_pass="password"
