@@ -2,6 +2,7 @@ import streamlit as st
 
 
 def main():
+	
 	st.write("file opening Swing")
 	st.code("""import java.awt.*;
 import java.applet.*;
@@ -56,7 +57,7 @@ public class SwingExample extends JApplet implements ActionListener {
         }
     }
 
-}""")
+	}""")
 	st.write("EX1 swing")
 	st.code("""// Program to illustrate RadioButton control
 import java.awt.*;
@@ -104,7 +105,7 @@ public class SwingExample extends JApplet implements ActionListener {
         String caption = ae.getActionCommand();
         jtf.setText(caption);
     }
-}""")
+	}""")
     st.write("https://www.java.com/en/download/")
     st.title("Download ADT android development tool kit")
     st.write("http://bit.ly/35GUYzF")
