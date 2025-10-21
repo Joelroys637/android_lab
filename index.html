@@ -1,37 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>🌤️ My Current Weather</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 50px;
-      background: linear-gradient(to bottom, #a1c4fd, #c2e9fb);
-      height: 100vh;
-    }
-    .weather-box {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      display: inline-block;
-      box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-    }
-  </style>
+  <title>Weather App Debug</title>
 </head>
 <body>
-  <h2>🌍 Get My Current Weather</h2>
+  <h2>🌤️ Get My Current Weather</h2>
   <button onclick="getLocation()">Show Weather</button>
-
-  <div id="output" class="weather-box"></div>
+  <p id="output"></p>
 
   <script>
-    const apiKey = "b7a42037ab89feb1a71670872e4375fe"; // 🔑 Replace with your actual key
+    const apiKey = "b7a42037ab89feb1a71670872e4375fe"; // Replace this!
 
     function getLocation() {
       const output = document.getElementById("output");
       output.innerHTML = "📡 Getting location...";
-      
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showWeather, showError);
       } else {
@@ -42,47 +24,36 @@
     function showWeather(position) {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-
       const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          const location = data.name;
-          const temp = data.main.temp;
-          const humidity = data.main.humidity;
-          const desc = data.weather[0].description;
+      console.log("Fetching:", url);
 
+      fetch(url)
+        .then(response => {
+          console.log("Response status:", response.status);
+          if (!response.ok) throw new Error("Network response was not OK");
+          return response.json();
+        })
+        .then(data => {
+          console.log("Weather data:", data);
           document.getElementById("output").innerHTML = `
-            <h3>📍 ${location}</h3>
-            <p>🌡️ Temperature: ${temp} °C</p>
-            <p>💧 Humidity: ${humidity}%</p>
-            <p>☁️ Condition: ${desc}</p>
-            <p>🧭 Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}</p>
+            📍 Location: ${data.name} <br>
+            🌡️ Temperature: ${data.main.temp} °C <br>
+            💧 Humidity: ${data.main.humidity}% <br>
+            ☁️ Condition: ${data.weather[0].description} <br>
+            🧭 Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}
           `;
         })
         .catch(error => {
-          document.getElementById("output").innerHTML = "⚠️ Error fetching weather data.";
-          console.error(error);
+          console.error("Fetch error:", error);
+          document.getElementById("output").innerHTML = "⚠️ Error fetching weather data. Check console for details.";
         });
     }
 
     function showError(error) {
       const output = document.getElementById("output");
-      switch(error.code) {
-        case error.PERMISSION_DENIED:
-          output.innerHTML = "❌ User denied location permission.";
-          break;
-        case error.POSITION_UNAVAILABLE:
-          output.innerHTML = "⚠️ Location information unavailable.";
-          break;
-        case error.TIMEOUT:
-          output.innerHTML = "⏳ Request to get location timed out.";
-          break;
-        default:
-          output.innerHTML = "❓ An unknown error occurred.";
-          break;
-      }
+      output.innerHTML = "❌ " + error.message;
+      console.error("Geolocation error:", error);
     }
   </script>
 </body>
