@@ -247,7 +247,9 @@
     L.marker(coords).addTo(map).bindPopup(name);
   }
 
-
+  for (const coord of Object.values(junctions)) {
+    L.circleMarker(coord, { radius: 4, color: 'yellow' }).addTo(map);
+  }
 
   let startPoint = null, startMarker = null, pathLine = null;
 
