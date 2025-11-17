@@ -97,6 +97,14 @@
     width: 100%;
     height: 100vh;
   }
+  .labelTooltip {
+  font-size: 12px;
+  padding: 2px 6px;
+  background: rgb(255, 255, 255);
+  color: black;
+  border-radius: 4px;
+  border: 1px solid #222;
+}
 </style>
 </head>
 <body>
@@ -148,8 +156,8 @@
       description: "Computer Science Department with modern labs and smart classrooms."
     },
     "Library": {
-      thumbnail: "lib.JPG",
-      gallery: ["lib.JPG", "lib2.JPG"],
+      thumbnail: "https://tse1.mm.bing.net/th/id/OIP.5TnhDawbYLpk260IqCWKmgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+      gallery: ["lib.jpg", "lib2.jpg"],
       description: "Central library with digital resources and reading hall."
     },
     "Main Gate": {
@@ -281,8 +289,8 @@
   for (const [name, coords] of Object.entries(locations)) {
     L.marker(coords)
       .addTo(map)
-      .bindTooltip(name, { permanent: true, offset: [0, -20], direction: "top" })
-      .openTooltip();
+      
+      .bindPopup(`<b>${name}</b>`);
   }
 
   for (const coord of Object.values(junctions)) {
@@ -365,15 +373,17 @@
       const destMarker = L.marker(destCoords, { icon: imgIcon }).addTo(map);
 
       let galleryHTML = info.gallery
-        .map(img => `<img src="${img}" style="width:100%;margin:5px 0;border-radius:8px;">`)
-        .join("");
+  .map(img => `<img src="${img}" style="width:85%;margin:4px auto;display:block;border-radius:6px;">`)
+  .join("");
 
-      const popupHTML = `
-        <h3>${destName}</h3>
-        <p>${info.description}</p>
-        <h4>Images:</h4>
-        ${galleryHTML}
-      `;
+  const popupHTML = `
+  <div style="max-width:240px;">
+    <h3 style="font-size:18px; margin-bottom:6px;">${destName}</h3>
+    <p style="font-size:13px; line-height:1.3;">${info.description}</p>
+    <h4 style="margin:6px 0 4px; font-size:14px;">Gallery</h4>
+    ${galleryHTML}
+  </div>
+`;
 
       destMarker.bindPopup(popupHTML);
     }
@@ -388,8 +398,8 @@
     for (const [name, coords] of Object.entries(locations)) {
       L.marker(coords)
         .addTo(map)
-        .bindTooltip(name, { permanent: true, offset: [0, -20], direction: "top" })
-        .openTooltip();
+        //.bindTooltip(name, { permanent: true, offset: [0, 0], direction: "top", className: "labelTooltip" })
+        .bindPopup(`<b>${name}</b>`);
     }
     for (const coord of Object.values(junctions)) {
       L.circleMarker(coord, { radius: 4, color: 'yellow' }).addTo(map);
