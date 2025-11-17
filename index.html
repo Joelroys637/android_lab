@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart 3D Campus Logical Path Finder</title>
+<title>SJC Campus</title>
 
 <!-- Leaflet CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -109,7 +109,7 @@
 </head>
 <body>
 
-<h1>Smart 3D Campus Logical Path Finder</h1>
+<h1>St.joseph's colllege Campus Navigation System</h1>
 
 <!-- Floating Menu Button -->
 <button id="menuButton">☰ Start</button>
@@ -119,16 +119,14 @@
   <h3>Controls</h3>
   <p>Click on the map to select your start location.</p>
 
-  <label>🔍 Type place name:</label>
-  <input type="text" id="searchBox" placeholder="Search place...">
-  <div id="suggestions"></div>
+  
 
   <label>Select destination:</label>
   <select id="destinationSelect">
     <option value="">Select destination</option>
   </select>
 
-  <button id="showPath">Show Logical Path</button>
+  <button id="showPath">Find Destination</button>
   <button id="reset">Reset</button>
 
   <p id="status"></p>
@@ -354,7 +352,7 @@
       `✅ Path drawn logically (${totalDist.toFixed(2)} meters)`;
 
     const utterance = new SpeechSynthesisUtterance(
-      `Welcome to SJC. Your destination ${destName} path is shown on the map. Thank you for coming to SJC.`
+      `Welcome to SJC. Your destination ${destName} is shown on the map.`
     );
     utterance.rate = 0.8;
     utterance.pitch = 1.0;
