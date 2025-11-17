@@ -15,30 +15,30 @@
     color: white;
   }
   h1 {
-    color: red;
+    color: rgb(0, 0, 255);
     text-align: center;
     margin: 10px 0;
   }
 
   /* Floating menu button */
   #menuButton {
-  position: cover;
-  top: 15px;
-  left: 15px;
-  background-color: red;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 15px;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 1001;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
+    position: cover;
+    top: 15px;
+    left: 15px;
+    background-color: rgba(229, 255, 0, 0.853);
+    color: rgb(10, 10, 10);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
 
-#menuButton:hover {
-  background-color: darkred;
-}
+  #menuButton:hover {
+    background-color: darkred;
+  }
 
   /* Floating menu container */
   #menu {
@@ -140,6 +140,40 @@
     menu.style.display = menu.style.display === "block" ? "none" : "block";
   };
 
+  // ------------------ Building Images & Details (NEW) ------------------
+  const buildingInfo = {
+    "CS Department": {
+      thumbnail: "cs_thumb.jpg",
+      gallery: ["cs1.jpg", "cs2.jpg", "cs3.jpg"],
+      description: "Computer Science Department with modern labs and smart classrooms."
+    },
+    "Library": {
+      thumbnail: "library_thumb.jpg",
+      gallery: ["lib.jpg", "lib2.jpg"],
+      description: "Central library with digital resources and reading hall."
+    },
+    "Main Gate": {
+      thumbnail: "gate_thumb.jpg",
+      gallery: ["gate1.jpg"],
+      description: "Main entrance of the SJC campus."
+    },
+    "Play Ground": {
+      thumbnail: "ground_thumb.jpg",
+      gallery: ["ground1.jpg", "ground2.jpg"],
+      description: "Large outdoor ground for sports and events."
+    },
+    "IT Department": {
+      thumbnail: "it_thumb.jpg",
+      gallery: ["it1.jpg"],
+      description: "Department of Information Technology with advanced labs."
+    },
+    "Jubile hall": {
+      thumbnail: "hall_thumb.jpg",
+      gallery: ["hall1.jpg"],
+      description: "Auditorium used for events and celebrations."
+    }
+  };
+
   // ------------------ Predefined Locations ------------------
   const locations = {
     "CS Department": [10.8291, 78.6916],
@@ -160,7 +194,7 @@
     "J13": [10.829760, 78.691145], "J14": [10.830186, 78.691142],
     "J15": [10.830645, 78.691118], "J16": [10.828786, 78.690773],
     "J17": [10.828844, 78.690263], "J18": [10.828905, 78.689850],
-    "J19": [10.829037, 78.689630], "J20": [10.829240, 78.689671],
+    "J19": [10.829037, 78.689630], "J20": [10.829240, 78.689671]
   };
 
   const edges = [
@@ -243,8 +277,12 @@
     maxZoom: 20,
   }).addTo(map);
 
+  // Show default markers + labels
   for (const [name, coords] of Object.entries(locations)) {
-    L.marker(coords).addTo(map).bindPopup(name);
+    L.marker(coords)
+      .addTo(map)
+      .bindTooltip(name, { permanent: true, offset: [0, -20], direction: "top" })
+      .openTooltip();
   }
 
   for (const coord of Object.values(junctions)) {
@@ -313,6 +351,32 @@
     utterance.rate = 0.8;
     utterance.pitch = 1.0;
     speechSynthesis.speak(utterance);
+
+    // ---------- NEW: Add image marker on destination ----------
+    if (buildingInfo[destName]) {
+      const info = buildingInfo[destName];
+
+      const imgIcon = L.icon({
+        iconUrl: info.thumbnail,
+        iconSize: [70, 70],
+        iconAnchor: [35, 70]
+      });
+
+      const destMarker = L.marker(destCoords, { icon: imgIcon }).addTo(map);
+
+      let galleryHTML = info.gallery
+        .map(img => `<img src="${img}" style="width:100%;margin:5px 0;border-radius:8px;">`)
+        .join("");
+
+      const popupHTML = `
+        <h3>${destName}</h3>
+        <p>${info.description}</p>
+        <h4>Images:</h4>
+        ${galleryHTML}
+      `;
+
+      destMarker.bindPopup(popupHTML);
+    }
   };
 
   // Reset
@@ -322,7 +386,10 @@
         map.removeLayer(layer);
     });
     for (const [name, coords] of Object.entries(locations)) {
-      L.marker(coords).addTo(map).bindPopup(name);
+      L.marker(coords)
+        .addTo(map)
+        .bindTooltip(name, { permanent: true, offset: [0, -20], direction: "top" })
+        .openTooltip();
     }
     for (const coord of Object.values(junctions)) {
       L.circleMarker(coord, { radius: 4, color: 'yellow' }).addTo(map);
